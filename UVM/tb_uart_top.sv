@@ -49,13 +49,20 @@ module tb_uart_top;
   initial
   begin
     uvm_config_db #(virtual uart_intf)::set(null, "*", "uart_intf", intf);
-    void'(uvm_config_db #(int)::set(null,"*","no_of_transactions",10));
+    uvm_config_db #(int)::set(null,"*","no_of_transactions",10);
     
     uvm_top.finish_on_completion = 1;
     
     run_test("uart_test");
   end
 
-endmodule: tb_uart_top
+initial
+begin
+  //fsdb
+  $fsdbDumpfile("tb_uart_top.fsdb");
+  $fsdbDumpvars(0,tb_uart_top,"+mda");
+  $fsdbDumpMDA();
+end
 
+endmodule: tb_uart_top
 

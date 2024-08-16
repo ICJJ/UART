@@ -11,16 +11,16 @@ endif
 ifeq ($(TB),UVM)
 TB_F = -ntb_opts uvm-1.2 ../UVM/uvm_tb.sv
 INCDIR +=  +incdir+../UVM
-SIM_ARG = +UVM_TESTNAME=uart_test
+SIM_ARG = +UVM_TESTNAME=uart_test -gui=verdi
 endif
 
 all:run
 
 cmp:
-	vcs -full64 -sverilog  $(TB_F) -l cmp.log -o simv -debug_access+all -kdb -lca -timescale=1ns/1ps -P ${VERDI_HOME}/share/PLI/VCS/LINUX64/novas.tab ${VERDI_HOME}/share/PLI/VCS/LINUX64/pli.a ${INCDIR}
+	vcs -full64 -sverilog  $(TB_F) -l cmp.log -o simv -debug_access+all -kdb -lca -timescale=1ns/1ps -P ${VERDI_HOME}/share/PLI/VCS/LINUX64/novas.tab ${VERDI_HOME}/share/PLI/VCS/LINUX64/pli.a ${INCDIR} 
 
 run:cmp
-	./simv -l sim.log +UVM_VERDI_TRACE=UVM_AWARE+HIER+RAL+COMPWAVE
+	./simv -l sim.log +UVM_VERDI_TRACE=UVM_AWARE+HIER+RAL+COMPWAVE $(SIM_ARG)
 
 clean:
 	rm -rf cmp.log
