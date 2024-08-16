@@ -1,7 +1,7 @@
 
 TB = UVM
 
-INCDIR = +incdir+../
+INCDIR = +incdir+../src
 
 ifeq ($(TB),SV)
 TB_F = ../SystemVerilog_testbench/sv_tb.sv
